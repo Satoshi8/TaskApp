@@ -26,7 +26,7 @@ class TaskAlarmReceiver:BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context,"default")
         builder.setSmallIcon(R.drawable.small_icon)
-        builder.setLargeIcon((BitmapFactory.decodeResource(context.resources,R.drawable.large_icon))
+        builder.setLargeIcon(BitmapFactory.decodeResource(context.resources,R.drawable.large_icon))
         builder.setWhen(System.currentTimeMillis())
         builder.setDefaults(Notification.DEFAULT_ALL)
         builder.setAutoCancel(true)
