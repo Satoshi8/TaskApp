@@ -9,6 +9,9 @@ import android.view.View
 import io.realm.Realm
 import kotlinx.android.synthetic.main.content_input.*
 import java.util.*
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
 
 class InputActivity : AppCompatActivity() {
 
@@ -126,5 +129,17 @@ class InputActivity : AppCompatActivity() {
         realm.commitTransaction()
 
         realm.close()
+
+        val resultIntent = Intent(applicationContext,TaskAlarmReceiver::class.java)
+        resultIntent.putExtra(EXTRA_TASK,mTask!!.id)
+        val resultPendingIntent = PendingIntent.getBroadcast(
+            this,
+            mTask!!.id,
+            resultIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,resultPendingIntent)
+
     }
 }
